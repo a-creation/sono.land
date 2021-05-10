@@ -1,0 +1,31 @@
+# Sidebar navigation
+
+- label: 'Introduction'
+  link: '/'
+- label: 'Getting started'
+  link: '/getting-started'
+- label: Tutorials
+  # - label: Chatroom App
+  items:
+    - label: 'Chatroom App'
+      link: '/tutorials/chatroom'
+    - label: 'Navigation'
+      link: '/tutorials/navigation'
+    - label: 'Shadowing'
+      link: '/tutorials/shadowing'
+  # - label: Video Chat App
+  #   items:
+  #       - label: 'Creating docs'
+  #         link: '/usage/creating-docs'
+  #       - label: 'Navigation'
+  #         link: '/usage/navigation'
+  #       - label: 'Shadowing'
+  #         link: '/usage/shadowing'
+- label: Server-side Methods
+  items:
+    - label: sono.connect
+      link: /connect
+    - label: .emit
+      # link: /emit
+    - label: .channel
+      link: https://github.com/rocketseat/gatsby-themes
