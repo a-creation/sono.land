@@ -1,13 +1,12 @@
 ---
-title: The Chatroom
-description: Learn to create a simple chatroom application with sono.io.
+title: WebRTC
+description: Learn to use WebRTC with sono.io.
 ---
 
-In this tutorial we will create a basic chat application using a basic Deno webserver and the sono.io library.
+In this tutorial we will create a video chat app with video using sono.io and the WebRTC API.
 
-### Why use WebSockets?
-Communcation between multiple parties has traditionally been done through long-polling a server.
-However, long polling is much more resource intensive on servers whereas WebSockets have an extremely lightweight footprint on servers, delivering low-latency messages between clients in real-time.
+### Why use WebRTC?
+The WebRTC API
 
 ### Why use Deno?
 Deno is a run-time alternative to Node.js that offers first-class Typescript support, security, and a performnant module/package managament system.
@@ -40,7 +39,7 @@ But how do we serve a html file of our choice and use Sono.io to facilitate WebS
 
 import { serve } from "https://deno.land/std@0.95.0/http/server.ts";
 import { serveFile } from "https://deno.land/std@0.95.0/http/file_server.ts";
-import { Sono } from "https://deno.land/x/sono@v1.0/mod.ts"
+import { Sono } from "PLACEHOLDER"
 
 const server = serve({ port: 3000 });
 const sono = new Sono();
@@ -101,13 +100,12 @@ Now to initialize the index.html file that we are serving:
       <ul id="messageBoard"></ul>
     </div>
     <div class="flex">
-      <input class="w-1/2 border border-black p-2" id="username" type="text" placeholder="username" />
       <input class="w-1/2 border border-black p-2" id="input" type="text" placeholder="message" />
     </div>
     <button class="p-2 text-white bg-black w-full mt-1" id="button">send message</button>
   </div>
 </body>
-<script type='module' src="main.js"></script>
+<script src="main.js"></script>
 </html>
 ```
 
@@ -116,7 +114,7 @@ You should see a basic chatroom if you open the HTML file.
 Now for main.js, which will be our JavaScript file that makes use of the client-side Sono object:
 
 ```js lineNumbers=true title=src/static/main.js
-import { SonoClient } from "https://deno.land/x/sono@v1.0/client_side/sono_client.js"
+import { SonoClient } from "PLACEHOLDER"
 
 const sono = new SonoClient('ws://localhost:8080/ws');
 sono.onconnection(()=>{
@@ -133,39 +131,96 @@ Then we can call the .onconnection method to notify everyone connected to this W
 The only other piece we need is an event listener, which simply prints out any messages received to the console. 
 Now, the server and the front-end come together: if you start the server and then open a new tab pointing to that URL, 
 you should see a message in the console saying 'client connected' once you connect to the WebSocket.
-Now onto adding messages to the DOM and seeing other clients' messages.
+Now onto
 
-```js lineNumbers=true title=src/static/main.js
-import { SonoClient } from "https://deno.land/x/sono@v1.0/client_side/sono_client.js"
+| Key                    | Required | Description                |
+| ---------------------- | -------- | -------------------------- |
+| title                  | Yes      | No                         |
+| description            | No       | Page description           |
+| image                  | No       | Used for og:image          |
+| disableTableOfContents | No       | Disables Table Of Contents |
 
-const sono = new SonoClient('ws://localhost:8080/ws');
-sono.onconnection(()=>{
-  sono.message('client connected')
-})
+## Example
 
-sono.on('message', (payload) => {
-  const messageBoard = document.getElementById('messageBoard');
-  const newMessage = document.createElement('li')
-  if(payload.message.username) newMessage.innerHTML = `<strong>${payload.message.username}:</strong> ${payload.message.message}`;
-  else newMessage.innerHTML = payload.message;
-  messageBoard.appendChild(newMessage);
-})
+```mdx
+---
+title: 'My Example'
+description: 'A simple description for this page'
+image: /banner.jpeg
+disableTableOfContents: false
+---
 
-document.getElementById('button').addEventListener('click', () => {
-  const message = document.getElementById('input').value;
-  const username = document.getElementById('username').value;
-  sono.broadcast({message, username});
-  const messageBoard = document.getElementById('messageBoard');
-  const newMessage = document.createElement('li')
-  newMessage.innerHTML = `<strong>${username}:</strong> ${message}`;
-  newMessage.style.cssFloat='right';
-  messageBoard.appendChild(newMessage);
-  messageBoard.appendChild(document.createElement('br'));
-});
-
+Wow, this is a nice page
 ```
-And there it is. A simple implementation of a chatroom. Upon a client connecting, the server will message everyone that a client has connected. 
-However, upon a user sending a message, we can use the .broadcast method to send the message (which in this case will be an object with a username and a message) to every connected client, except for ourselves. 
-Take note that broadcast can optionally take a second parameter that allows you to specify the event name. The default event name is 'message', but you customize the event name and simply listen for that specific event using the .on('insertCustomNameHere') method.
-To distinguish our own texts, we will put them to the right of the chatbox.  
 
+## Embeding files
+
+In a documentation website, sometimes you will need to embed well known services (like CodeSandbox, Twitter, or others...). If you need to
+do it, you can simply copy-paste the link (powered by the awesome [gatsby-remark-embeder](https://www.gatsbyjs.com/packages/gatsby-remark-embedder/)).
+Make sure to check the [supported services](https://github.com/MichaelDeBoey/gatsby-remark-embedder#supported-services).
+
+https://youtu.be/QfcozcbDhNM
+
+## Code Highlight
+
+We support many options for code components.
+
+### Title
+
+To show a title, just add it to your code block. Ex: `title=src/myfile.css`
+
+```css title=src/myfile.css
+.gatsby::before {
+  content: 'niceee...';
+}
+```
+
+### Line numbers
+
+To add line numbers for that code block, pass an option `lineNumbers=true`.
+
+```js lineNumbers=true
+const rocket = {
+  launch: () => console.log('Launching...'),
+};
+
+rocket.launch();
+```
+
+### React live
+
+As mentioned in the introduction, this theme uses `react-live`, so you can
+create a playground for live editing React components.
+
+To use it, just add a `live=true` option to your code block.
+
+```jsx lineNumbers=true title=gatsby-config.js live=true
+function MyComponent() {
+  function handleButtonClick() {
+    alert('wowww');
+  }
+
+  return <button onClick={handleButtonClick}>Hey, click me!</button>;
+}
+
+render(<MyComponent />);
+```
+
+> If you need to add elements to the scope, check this [guide](/usage/shadowing#adding-elements-to-react-live-scope).
+
+### Highlight lines
+
+To highlight lines, you can pass ranges to a `highlight` option.
+For example `highlight={1-4,6-7,9}` on the code below would result in:
+
+```jsx highlight={1-4,6-7,9}
+function MyComponent() {
+  function handleButtonClick() {
+    alert('wowww');
+  }
+
+  return <button onClick={handleButtonClick}>Hey, click me!</button>;
+}
+
+render(<MyComponent />);
+```

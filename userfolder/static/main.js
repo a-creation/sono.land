@@ -6,9 +6,20 @@ sono.onconnection(()=>{
 })
 
 sono.on('message', (msg) => {
-  console.log('message received:', msg)
+  const messageBoard = document.getElementById('messageBoard');
+  const newMessage = document.createElement('li');
+  newMessage.innerHTML = `${payload.message}`;
+  messageBoard.appendChild(newMessage);
 })
 
-// sono.on('bye', (msg) => {
-//   console.log(msg, 'BYE EVENT')
-// })
+document.getElementById('button').addEventListener('click', () => {
+  sono.broadcast(document.getElementById('input').value)
+  const messageBoard = document.getElementById('messageBoard');
+  const newMessage = document.createElement('li');
+  const lineBreak = document.createElement('br');
+  newMessage.innerHTML = `${payload.message}`;
+  newMessage.setAttribute('float','right')
+  newMessage.setAttribute('white-space','wrap');
+  messageBoard.appendChild(newMessage);
+  messageBoard.appendChild(lineBreak);
+});

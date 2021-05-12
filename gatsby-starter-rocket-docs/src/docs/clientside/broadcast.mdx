@@ -1,0 +1,23 @@
+---
+
+title: broadcast
+description: Broadcasting message to all clients in a channel
+
+---
+
+## Broadcasting Message To All Clients Within A Channel
+
+The broadcast method permits users to send a message to other members within its channel. The user will not see its own message.
+
+### Client Side
+
+```ts lineNumbers=true 
+
+// example below demonstrates 'user is typing...'
+document.getElementById('messageInputBox').addEventListener('onChange', () => {
+  const user = document.getELementbyId('user').value;
+  const message = `${user} is typing`;
+  sono.broadcast(message);
+});
+
+```

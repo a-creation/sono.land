@@ -1,0 +1,19 @@
+---
+
+title: message
+description: Send message to all clients including the sender
+
+---
+
+## Send Message To All
+
+Message, sends the message to all clients including the sender. 
+
+``` ts lineNumbers=true
+// example below sends a message to members of a channel
+document.getElementById('send').addEventListener('click', () => {
+  const message = document.getELementbyId('message').value;
+  sono.message(message);
+});
+
+```

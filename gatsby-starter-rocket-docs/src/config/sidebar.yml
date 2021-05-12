@@ -5,27 +5,32 @@
 - label: 'Getting started'
   link: '/getting-started'
 - label: Tutorials
-  # - label: Chatroom App
   items:
     - label: 'Chatroom App'
       link: '/tutorials/chatroom'
-    - label: 'Navigation'
-      link: '/tutorials/navigation'
+    - label: 'Live Video Chat (w/ WebRTC)'
+      link: '/tutorials/webrtc'
     - label: 'Shadowing'
       link: '/tutorials/shadowing'
-  # - label: Video Chat App
-  #   items:
-  #       - label: 'Creating docs'
-  #         link: '/usage/creating-docs'
-  #       - label: 'Navigation'
-  #         link: '/usage/navigation'
-  #       - label: 'Shadowing'
-  #         link: '/usage/shadowing'
 - label: Server-side Methods
   items:
-    - label: sono.connect
-      link: /connect
-    - label: .emit
-      # link: /emit
+    - label: '.connect'
+      link: '/serverside/connect'
+    - label: '.emit'
+      link: '/serverside/emit'
     - label: .channel
-      link: https://github.com/rocketseat/gatsby-themes
+      link: '/serverside/channel'
+- label: Client-side Methods
+  items:
+    - label: '.directmessage'
+      link: '/clientside/directMessage'
+    - label: '.broadcast'
+      link: '/clientside/broadcast'
+    - label: .message
+      link: '/clientside/message'
+    - label: .changechannel
+      link: '/clientside/changeChannel'
+    - label: .grab
+      link: '/clientside/grab'
+    - label: .on
+      link: '/clientside/on'
