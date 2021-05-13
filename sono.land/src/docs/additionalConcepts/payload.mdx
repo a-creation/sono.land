@@ -1,0 +1,32 @@
+---
+title: Payload
+description: The payload object that is sent from the server-side to all the applicable clients holds all the important data users need so they can know which custom events they will use for whatever custom events they may receive. 
+
+---
+
+## Sending data through the payload object from the server-side
+
+When a method from the client-side is invoked data is sent to the server. Once the server receives this data and determines which clients should be receiving it, the server will then stores all the necessary data inside of an object called payload. This payload contains the message itself and the sender's Client ID.
+
+
+
+### Server Side
+```ts lineNumbers=true
+const server = serve({ port: 8080 });
+const sono = new TestSono();
+
+/* The server is sending data to all applicable clients. When the data 
+is received the payload object will be accessible to any callback the 
+developer would like to invoke just by adding a parameter to it. So in 
+this example we are using the on method to look for incoming data with 
+a custom event name 'message'. If the event name is 'message' it will 
+invoke this callback which now has access to the data on the payload and 
+is now able to display this data on the page. */
+
+sono.on('message', (payload) => {
+ const message = document.createElement('li');
+ message.innerText = payload.message;
+ messageBoard.appendChild(message);
+});
+
+```
